@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map For CKEasyWifiNetwork
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+Setup	KEYWORD2
+Loop	KEYWORD2
+
+#######################################
+# Classes (KEYWORD3)
+#######################################
+CKEasyWifiNetwork	KEYWORD3
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+CKEASYWIFINETWORK_SERIAL_DEBUG	LITERAL1
+CKEASYWIFINETWORK_SUPPRESS_SD	LITERAL1
+CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG	LITERAL1
+CKEASYWIFINETWORK_SUPPRESS_SECINFO	LITERAL1
