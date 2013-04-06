@@ -1,5 +1,5 @@
 /*
-   CKEasyWifiNetwork, a wrapper around the Digilent WIFI library for the ChipKit platform
+   CKEasyWifiConfig, a wrapper around the Digilent WIFI library for the ChipKit platform
    Copyright 2013 Jean-Michel Julien
 
    Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,44 +21,44 @@
    THE SOFTWARE.
 */
 
-#ifndef CKEASYWIFINETWORK_H_
-#define CKEASYWIFINETWORK_H_
+#ifndef CKEASYWIFICONFIG_H_
+#define CKEASYWIFICONFIG_H_
 
 // UnComment this line to activate serial debugging, also make sure that the Serial interface is initialized
-//#define CKEASYWIFINETWORK_SERIAL_DEBUG
+//#define CKEASYWIFICONFIG_SERIAL_DEBUG
 
 // UnComment this line to suppress SD Card usage (Also add the SD library to your sketch and configure the SD library before making calls to this library)
-//#define CKEASYWIFINETWORK_SUPPRESS_SD
+//#define CKEASYWIFICONFIG_SUPPRESS_SD
 // UnComment this line to suppress WF_Config.x file usage (See the DWIFIcK library documentation)
-#define CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+#define CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
 // UnComment this line to suppress provided SECINFO structure usage (Connection infos contained in code)
-//#define CKEASYWIFINETWORK_SUPPRESS_SECINFO
+//#define CKEASYWIFICONFIG_SUPPRESS_SECINFO
 
 #include <DNETcK.h>
 #include <DWIFIcK.h>
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SD
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SD
 #include <SD.h>
 #endif
 #include <Streaming.h>
 
-class CKEasyWifiNetwork
+class CKEasyWifiConfig
 {
 public:
-#ifndef CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+#ifndef CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
   //Constructor to use DHCP with WF_Config.x file for security parameters
-  CKEasyWifiNetwork();
+  CKEasyWifiConfig();
   //Constructor to use StaticIP with WF_Config.x file for security parameters
-  CKEasyWifiNetwork(IPv4 ip);
+  CKEasyWifiConfig(IPv4 ip);
 #endif
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SECINFO
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SECINFO
   //Constructor to use DHCP
-  CKEasyWifiNetwork(DWIFIcK::SECINFO* secinfo, const char* szSsid);
+  CKEasyWifiConfig(DWIFIcK::SECINFO* secinfo, const char* szSsid);
   //Constructor to use StaticIP
-  CKEasyWifiNetwork(DWIFIcK::SECINFO* secinfo, const char* szSsid, IPv4 ip);
+  CKEasyWifiConfig(DWIFIcK::SECINFO* secinfo, const char* szSsid, IPv4 ip);
 #endif
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SD
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SD
   //Constructor that use the configuration parameters from a file on the SD Card
-  CKEasyWifiNetwork(char* szConfigFile);
+  CKEasyWifiConfig(char* szConfigFile);
 #endif
 
   // To be called once at the beginning; usually in the setup method of the sketch
@@ -81,10 +81,10 @@ private:
   const char* ssid;  // Specify the SSID
   Config_Type typeConfig; //configuration type we are using
   char* configFile;  // Name of the config file on the SD card
-#if !defined(CKEASYWIFINETWORK_SUPPRESS_SECINFO) || !defined(CKEASYWIFINETWORK_SUPPRESS_SD)
+#if !defined(CKEASYWIFICONFIG_SUPPRESS_SECINFO) || !defined(CKEASYWIFICONFIG_SUPPRESS_SD)
   DWIFIcK::SECINFO secInfo;  //Security Infos
 #endif
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SD
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SD
   char _ssid[33];  //ssid read from SD card max 32 char 
 #endif
 
@@ -96,29 +96,29 @@ private:
 
 
 
-#ifndef CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+#ifndef CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
 //Constructor to use DHCP with WF_Config.x file for security parameters
-CKEasyWifiNetwork::CKEasyWifiNetwork() : typeConfig(WF_FILE), useDhcp(true), connectionTimeout(40000) {}
+CKEasyWifiConfig::CKEasyWifiConfig() : typeConfig(WF_FILE), useDhcp(true), connectionTimeout(40000) {}
 //Constructor to use StaticIP with WF_Config.x file for security parameters
-CKEasyWifiNetwork::CKEasyWifiNetwork(IPv4 ip) : typeConfig(WF_FILE), staticIp(ip), useDhcp(false), connectionTimeout(40000) {}
-#endif //CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+CKEasyWifiConfig::CKEasyWifiConfig(IPv4 ip) : typeConfig(WF_FILE), staticIp(ip), useDhcp(false), connectionTimeout(40000) {}
+#endif //CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
 
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SECINFO
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SECINFO
 //Constructor to use DHCP
-CKEasyWifiNetwork::CKEasyWifiNetwork(DWIFIcK::SECINFO* secinfo, const char* szSsid) : typeConfig(SEC_INFO),secInfo(*secinfo), ssid(szSsid), useDhcp(true), connectionTimeout(40000) {}
+CKEasyWifiConfig::CKEasyWifiConfig(DWIFIcK::SECINFO* secinfo, const char* szSsid) : typeConfig(SEC_INFO),secInfo(*secinfo), ssid(szSsid), useDhcp(true), connectionTimeout(40000) {}
 //Constructor to use StaticIP
-CKEasyWifiNetwork::CKEasyWifiNetwork(DWIFIcK::SECINFO* secinfo, const char* szSsid, IPv4 ip) : typeConfig(SEC_INFO), secInfo(*secinfo), ssid(szSsid), staticIp(ip), useDhcp(false), connectionTimeout(40000) {}
-#endif //CKEASYWIFINETWORK_SUPPRESS_SECINFO
+CKEasyWifiConfig::CKEasyWifiConfig(DWIFIcK::SECINFO* secinfo, const char* szSsid, IPv4 ip) : typeConfig(SEC_INFO), secInfo(*secinfo), ssid(szSsid), staticIp(ip), useDhcp(false), connectionTimeout(40000) {}
+#endif //CKEASYWIFICONFIG_SUPPRESS_SECINFO
 
-#ifndef CKEASYWIFINETWORK_SUPPRESS_SD
+#ifndef CKEASYWIFICONFIG_SUPPRESS_SD
 //Constructor that use the configuration parameters from a file on the SD Card
-CKEasyWifiNetwork::CKEasyWifiNetwork(char* szConfigFile) : typeConfig(SD_FILE), configFile(szConfigFile), connectionTimeout(40000) {}
+CKEasyWifiConfig::CKEasyWifiConfig(char* szConfigFile) : typeConfig(SD_FILE), configFile(szConfigFile), connectionTimeout(40000) {}
 
 // Max Line size for the read buffer 
 const int ReadBufferLength = 100;
 
 // Method to read a line from SD file
-bool CKEasyWifiNetwork::ReadLine(char *buffer, File &file)
+bool CKEasyWifiConfig::ReadLine(char *buffer, File &file)
 {
   bool stop = false;
   char ch;
@@ -131,7 +131,7 @@ bool CKEasyWifiNetwork::ReadLine(char *buffer, File &file)
   {
     if (!file.available())
     {
-      #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+      #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
         Serial << "EASYWIFI: Error Reading line from config file; End of File" << endl;
       #endif
       return false;
@@ -147,35 +147,35 @@ bool CKEasyWifiNetwork::ReadLine(char *buffer, File &file)
     }
     if (i >= ReadBufferLength)
     {
-      #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+      #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
         Serial << "EASYWIFI: Error Reading line from config file; line too long" << endl;
       #endif
       return false;  //Line too long to be read
     }
     if (!file.available())
     {
-      #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+      #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
         Serial << "EASYWIFI: No end of line found; End of File" << endl;
       #endif
       stop = true;
     }
   } while (!stop);
 
-  #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+  #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
     Serial << "EASYWIFI: Read line from config file --> " << buffer << endl;
   #endif
   return true;
 }
 
 // Method that read and interpret the config file
-void CKEasyWifiNetwork::ReadConfigFile()
+void CKEasyWifiConfig::ReadConfigFile()
 {
   char readBuffer[ReadBufferLength];
   File fh = SD.open(configFile, FILE_READ);
   
   if(!fh)
   {
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Cannot open SD config file --> " << configFile << endl;
     #endif
     return;
@@ -196,7 +196,7 @@ void CKEasyWifiNetwork::ReadConfigFile()
     for (int i = 0; i < strlen(readBuffer); i++)
       readBuffer[i] = toupper(readBuffer[i]);
 
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Read network config Param --> " << readBuffer << " Value --> " << tmp+1 << endl;
     #endif
     
@@ -265,29 +265,29 @@ void CKEasyWifiNetwork::ReadConfigFile()
       break;
   }
 }
-#endif //CKEASYWIFINETWORK_SUPPRESS_SD
+#endif //CKEASYWIFICONFIG_SUPPRESS_SD
 
 // To be called once at the beginning
-bool CKEasyWifiNetwork::Setup()
+bool CKEasyWifiConfig::Setup()
 {
   int conID = DWIFIcK::INVALID_CONNECTION_ID;
   DNETcK::STATUS status;
 
-  #ifndef CKEASYWIFINETWORK_SUPPRESS_SD
+  #ifndef CKEASYWIFICONFIG_SUPPRESS_SD
     if (typeConfig == SD_FILE)
     {
       ReadConfigFile();
     }
-  #endif  //CKEASYWIFINETWORK_SUPPRESS_SD
+  #endif  //CKEASYWIFICONFIG_SUPPRESS_SD
     
   if (typeConfig == SEC_INFO || typeConfig == SD_FILE)
   {
     // Use connection parameters provided in secInfo
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Attempting connection to WiFi network --> " << ssid << endl;
     #endif
 
-    #if !defined(CKEASYWIFINETWORK_SUPPRESS_SECINFO) || !defined(CKEASYWIFINETWORK_SUPPRESS_SD)
+    #if !defined(CKEASYWIFICONFIG_SUPPRESS_SECINFO) || !defined(CKEASYWIFICONFIG_SUPPRESS_SD)
     switch(secInfo.securityType)
     {
       case DWIFIcK::WF_SECURITY_WPA2_WITH_KEY :
@@ -312,23 +312,23 @@ bool CKEasyWifiNetwork::Setup()
       default:
         conID = DWIFIcK::connect(ssid, &status);
     }
-    #endif  //defined(CKEASYWIFINETWORK_SUPPRESS_SECINFO) || defined(CKEASYWIFINETWORK_SUPPRESS_SD)
+    #endif  //defined(CKEASYWIFICONFIG_SUPPRESS_SECINFO) || defined(CKEASYWIFICONFIG_SUPPRESS_SD)
   }
   else
   {
     // Use connection parameters in WF_Config.x
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Attempting connection to WiFi network with parameters from WF_Config.x" << endl;
     #endif
     
-    #ifndef CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+    #ifndef CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
       conID = DWIFIcK::connect(0, &status);
-    #endif  //CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG
+    #endif  //CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG
   }
   
   if(conID != DWIFIcK::INVALID_CONNECTION_ID)
   {
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Connection Created, ConID = " << _DEC(conID) << endl;
     #endif
     
@@ -345,7 +345,7 @@ bool CKEasyWifiNetwork::Setup()
     
     if(DNETcK::isInitialized(connectionTimeout, &status))
     {
-      #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+      #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
         Serial << "EASYWIFI: IP Stack Initialized." << endl;
         IPv4 myIp;
         if (DNETcK::getMyIP(&myIp))
@@ -358,14 +358,14 @@ bool CKEasyWifiNetwork::Setup()
     }
     else if(DNETcK::isStatusAnError(status))
     {
-      #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+      #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
         Serial << "EASYWIFI: Error in initializing TCP/IP stack, status: " << _DEC(status) << endl;
       #endif
     }
   }
   else
   {
-    #ifdef CKEASYWIFINETWORK_SERIAL_DEBUG
+    #ifdef CKEASYWIFICONFIG_SERIAL_DEBUG
       Serial << "EASYWIFI: Unable to begin the connection process to the WIFI network, status: " << _DEC(status) << endl;
     #endif
   }
@@ -373,10 +373,10 @@ bool CKEasyWifiNetwork::Setup()
 }
 
 // To be called in the main loop of the application
-void CKEasyWifiNetwork::Loop()
+void CKEasyWifiConfig::Loop()
 {
   // every pass through loop(), keep the stack alive
   DNETcK::periodicTasks(); 
 }
 
-#endif /* CKEASYWIFINETWORK_H_ */
+#endif /* CKEASYWIFICONFIG_H_ */

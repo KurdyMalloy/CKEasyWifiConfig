@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For CKEasyWifiNetwork
+# Syntax Coloring Map For CKEasyWifiConfig
 #######################################
 
 #######################################
@@ -15,12 +15,12 @@ Loop	KEYWORD2
 #######################################
 # Classes (KEYWORD3)
 #######################################
-CKEasyWifiNetwork	KEYWORD3
+CKEasyWifiConfig	KEYWORD3
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-CKEASYWIFINETWORK_SERIAL_DEBUG	LITERAL1
-CKEASYWIFINETWORK_SUPPRESS_SD	LITERAL1
-CKEASYWIFINETWORK_SUPPRESS_WF_CONFIG	LITERAL1
-CKEASYWIFINETWORK_SUPPRESS_SECINFO	LITERAL1
+CKEASYWIFICONFIG_SERIAL_DEBUG	LITERAL1
+CKEASYWIFICONFIG_SUPPRESS_SD	LITERAL1
+CKEASYWIFICONFIG_SUPPRESS_WF_CONFIG	LITERAL1
+CKEASYWIFICONFIG_SUPPRESS_SECINFO	LITERAL1

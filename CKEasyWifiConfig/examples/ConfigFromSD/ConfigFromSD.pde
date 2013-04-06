@@ -6,8 +6,8 @@
 #include <DWIFIcK.h>
 
 // Remove the next line to stop the serial debugging of the library
-#define CKEASYWIFINETWORK_SERIAL_DEBUG  
-#include <CKEasyWifiNetwork.h>
+#define CKEASYWIFICONFIG_SERIAL_DEBUG  
+#include <CKEasyWifiConfig.h>
 
 //To enable serial debugging in the main sketch
 #define USE_SERIAL_DEBUG  
@@ -15,7 +15,7 @@
 // Name of the config file on the SD card
 char networkConfigFile[] = "NetConf.cfg";
 
-CKEasyWifiNetwork networkWrapper(networkConfigFile);
+CKEasyWifiConfig networkWrapper(networkConfigFile);
 
 void setup() {
   // put your setup code here, to run once:

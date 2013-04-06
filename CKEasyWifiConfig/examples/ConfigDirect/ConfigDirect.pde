@@ -6,9 +6,9 @@
 #include <DWIFIcK.h>
 
 // Remove the next line to stop the serial debugging of the library
-#define CKEASYWIFINETWORK_SERIAL_DEBUG  
-#define CKEASYWIFINETWORK_SUPPRESS_SD  // This line force the library to remove the SD card functionality; to save precious memory 
-#include <CKEasyWifiNetwork.h>
+#define CKEASYWIFICONFIG_SERIAL_DEBUG  
+#define CKEASYWIFICONFIG_SUPPRESS_SD  // This line force the library to remove the SD card functionality; to save precious memory 
+#include <CKEasyWifiConfig.h>
 
 //To enable serial debugging in the main sketch
 #define USE_SERIAL_DEBUG  
@@ -37,10 +37,10 @@ DWIFIcK::SECINFO secinfo = {
 };
 
 // Set the Library to connect by DHCP to the network with ssid "MYNETWORK"
-CKEasyWifiNetwork networkWrapper(&secinfo, "MYNETWORK");
+CKEasyWifiConfig networkWrapper(&secinfo, "MYNETWORK");
 
 // Set the Library to connect with a static adress to the network with ssid "MYNETWORK"
-//CKEasyWifiNetwork networkWrapper(&secinfo, "MYNETWORK", IPv4{192,168,1,250});
+//CKEasyWifiConfig networkWrapper(&secinfo, "MYNETWORK", IPv4{192,168,1,250});
 
 void setup() {
   // put your setup code here, to run once:
