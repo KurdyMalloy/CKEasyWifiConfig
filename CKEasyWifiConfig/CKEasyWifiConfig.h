@@ -63,8 +63,6 @@ public:
 
   // To be called once at the beginning; usually in the setup method of the sketch
   bool Setup(); 
-  // To be called in the main loop of the sketch
-  void Loop();
 
 private:
   // Types of configuration methods
@@ -370,13 +368,6 @@ bool CKEasyWifiConfig::Setup()
     #endif
   }
   return false;
-}
-
-// To be called in the main loop of the application
-void CKEasyWifiConfig::Loop()
-{
-  // every pass through loop(), keep the stack alive
-  DNETcK::periodicTasks(); 
 }
 
 #endif /* CKEASYWIFICONFIG_H_ */

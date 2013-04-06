@@ -15,7 +15,7 @@
 // Name of the config file on the SD card
 char networkConfigFile[] = "NetConf.cfg";
 
-CKEasyWifiConfig networkWrapper(networkConfigFile);
+CKEasyWifiConfig networkConfig(networkConfigFile);
 
 void setup() {
   // put your setup code here, to run once:
@@ -44,12 +44,12 @@ void setup() {
   }
   
   // Call the initialization
-  networkWrapper.Setup();
+  networkConfig.Setup();
 }
 
 void loop() {
   // put your main code here, to run repeatedly: 
 
   // every pass through loop(), keep the IP stack alive
-  networkWrapper.Loop(); 
+  DNETcK::periodicTasks();
 }

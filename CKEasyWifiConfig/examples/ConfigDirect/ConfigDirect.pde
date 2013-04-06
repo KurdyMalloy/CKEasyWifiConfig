@@ -37,10 +37,10 @@ DWIFIcK::SECINFO secinfo = {
 };
 
 // Set the Library to connect by DHCP to the network with ssid "MYNETWORK"
-CKEasyWifiConfig networkWrapper(&secinfo, "MYNETWORK");
+CKEasyWifiConfig networkConfig(&secinfo, "MYNETWORK");
 
 // Set the Library to connect with a static adress to the network with ssid "MYNETWORK"
-//CKEasyWifiConfig networkWrapper(&secinfo, "MYNETWORK", IPv4{192,168,1,250});
+//CKEasyWifiConfig networkConfig(&secinfo, "MYNETWORK", IPv4{192,168,1,250});
 
 void setup() {
   // put your setup code here, to run once:
@@ -50,13 +50,13 @@ void setup() {
   #endif
 
   // Call the initialization
-  networkWrapper.Setup();
+  networkConfig.Setup();
 }
 
 void loop() {
   // put your main code here, to run repeatedly: 
 
   // every pass through loop(), keep the IP stack alive
-  networkWrapper.Loop(); 
+  DNETcK::periodicTasks();
 }
 
