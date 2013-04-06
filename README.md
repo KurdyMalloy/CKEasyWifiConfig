@@ -5,7 +5,7 @@ A library for the Digilent chipKIT development boards. It lets you configure the
 ###Problem###
 Most sketches that you find in the examples always hard-code the wifi settings in the sketch; this is kind of problematic if every time that you want to connect to a different network you have to change code and rebuild the sketch and reload it on the board. 
 ###Solution###
-This library will let you configure the wifi shield with settings read from a configuration file saved on a SD card loaded on the shield. So to change the settings, you just have to change the config file on the SD card. This is a lot better especially when your device is deployed in a project.
+This library will let you configure the wifi shield with settings read from a configuration file saved on a SD card loaded on the shield. So to change the settings, you just have to change the configuration file on the SD card. This is a lot better especially when your device is deployed in a project.
 
 ## Installation ##
 This is arduino's standard way of installing a custom library:
@@ -86,11 +86,11 @@ Example of a config file to connect with a static address and a wpa2 passphrase 
 ## Usage ##
 There is two example projects provided with the library; one to use a configuration file on the card and one where you can pass the security infos in the code.
 
-To use the library, make sure that you include all the dependency library before you include CKEasyWifiConfig.
+To use the library, make sure that you include all the dependency libraries before you include CKEasyWifiConfig.
 
-If you want to make the library outputs some debugging information in the serial port, make sur to define "CKEASYWIFICONFIG_SERIAL_DEBUG" before to include the library. Also you will have to make sure that you setup the serial port before you call the "Setup()" method of the library.
+If you want the library to output some debugging information in the serial port, make sure to define "CKEASYWIFICONFIG_SERIAL_DEBUG" before to include the library. Also you will have to make sure that you setup the serial port before you call the "Setup()" method of the library.
 
-It is also very important to initialize the SD card before you call the "Setup()" method of the library as this library make use of it.
+It is also very important to initialize the SD card before you call the "Setup()" method of the CKEasyWifiConfig class since it will use it.
 
 Example:
 
@@ -151,9 +151,9 @@ Example:
 	}
 
 ## Limitations ##
-The SD card library only supports file names in the 8.3 format. So your configuration file and any sub-folder that you want to put it in, needs to have a name in this format.
+The SD card library only supports file names in the 8.3 format. So your configuration file and any sub-folder that you want to put it in, need to have a name in this format.
 
-Due to some architecture differences; this library is not really suitable for the arduino platform. The arduino has a very different memory model especially to store static stuff into the flash memory (PROGMEM). This code was not designed with that in mind and take fully advantage of the fact that the PIC architecture is much easier to code for. Also since there is a lot more space available on the chipKIT platform, more time was spent developing for the usability of the library than on trying to reduce its size.
+Due to some architecture differences; this library is not really suitable for the arduino platform. The arduino has a very different memory model especially to store static stuff into the flash memory (PROGMEM). This code was not designed with that in mind and take fully advantage of the fact that the PIC architecture is much easier to code for. Also since there is a lot more space available on the chipKIT platform, more time was spent developing for the usability of the library than on trying to reduce its size. The dependency to the Digilent networking libraries is also a factor to the non-portability of the library.
 
 ## Praise##
 I know that there was a lot of critics in the forums in regards to the compatibility of the chipKIT environment with the Arduino. But looking at some of the files under the hood of mpide I realized the amount of work necessary to bring this to life. I really think that this is quite an achievement.
