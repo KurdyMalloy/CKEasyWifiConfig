@@ -140,8 +140,9 @@ bool CKEasyWifiConfig::ReadLine(char *buffer, File &file)
       buffer[i++] = ch;
     else
     {
-      file.read(); //pass to next char; \r\n always come together
       stop = true; //end of line
+      if (file.peek() == '\n' || file.peek() == '\r')  // is eol two char; \r\n always come together on windows
+		file.read(); //pass to next char
     }
     if (i >= ReadBufferLength)
     {
