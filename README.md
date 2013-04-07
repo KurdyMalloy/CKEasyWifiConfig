@@ -3,7 +3,7 @@ A library for the Digilent chipKIT development boards. It lets you configure the
 
 ##Why##
 ###Problem###
-Most sketches that you find in the examples always hard-code the wifi settings in the sketch; this is kind of problematic if every time that you want to connect to a different network you have to change code and rebuild the sketch and reload it on the board. 
+In most example sketches that you will find, the wifi settings are always hard-coded in the sketch; this is kind of problematic if every time that you want to connect to a different network you have to change code and rebuild the sketch and reload it on the board. 
 ###Solution###
 This library will let you configure the wifi shield with settings read from a configuration file saved on a SD card loaded on the shield. So to change the settings, you just have to change the configuration file on the SD card. This is a lot better especially when your device is deployed in a project.
 
@@ -31,7 +31,7 @@ The configuration file included in the project is already self-documented.
 
 Any line beginning with the character '#' or '/' will be ignored and considered a comment.
 
-The parameter names in the file are case sensitive, they need to be uppercase. Here is the possible values for each parameters:
+The parameter names in the file are case sensitive, they need to be uppercase. Here are the possible values for each parameters:
 
 **SECURITY:**
 
@@ -69,14 +69,14 @@ The parameter names in the file are case sensitive, they need to be uppercase. H
 
 Important: the KEY and KEYCHAR parameters are mutually exclusive; if you provide both, the last one read in the file will be the one that is used.
 
-Example of a config file to connect with dhcp and an hexadecimal wpa2 key :
+Example of a configuration file to connect with dhcp and an hexadecimal wpa2 key :
 
     SECURITY:WPA_AUTO_WITH_KEY
 	SSID:MYNETWORK
 	IP:DHCP
 	KEY:5312826e170e6d0ef8691670cabc5c9c3072cf8c003e4ee541a499d060746cfa
 
-Example of a config file to connect with a static address and a wpa2 passphrase key :
+Example of a configuration file to connect with a static address and a wpa2 passphrase key :
 
     SECURITY:WPA_AUTO_WITH_PASS_PHRASE
 	SSID:MYNETWORK
@@ -84,11 +84,11 @@ Example of a config file to connect with a static address and a wpa2 passphrase 
 	KEYCHAR:hermionegranger
 
 ## Usage ##
-There is two example projects provided with the library; one to use a configuration file on the card and one where you can pass the security infos in the code.
+There are two example projects provided with the library; one to use a configuration file on the card and one where you can pass the security infos in the code.
 
 To use the library, make sure that you include all the dependency libraries before you include CKEasyWifiConfig.
 
-If you want the library to output some debugging information in the serial port, make sure to define "CKEASYWIFICONFIG_SERIAL_DEBUG" before to include the library. Also you will have to make sure that you setup the serial port before you call the "Setup()" method of the library.
+If you want the library to output some debugging information in the serial port, make sure to define "CKEASYWIFICONFIG_SERIAL_DEBUG" before you include the library. You will also have to make sure that you setup the serial port before you call the "Setup()" method of the library.
 
 It is also very important to initialize the SD card before you call the "Setup()" method of the CKEasyWifiConfig class since it will use it.
 
