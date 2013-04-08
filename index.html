@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="CKEasyWifiConfig : Library for the chipKIT embedded platform. It lets you configure the Digilent wifi shield with a configuration file on the SD card." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>CKEasyWifiConfig</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/KurdyMalloy/CKEasyWifiConfig">View on GitHub</a>
+
+          <h1 id="project_title">CKEasyWifiConfig</h1>
+          <h2 id="project_tagline">Library for the chipKIT embedded platform. It lets you configure the Digilent wifi shield with a configuration file on the SD card.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/KurdyMalloy/CKEasyWifiConfig/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/KurdyMalloy/CKEasyWifiConfig/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>CKEasyWifiConfig</h1>
+
+<p>A library for the Digilent chipKIT development boards. It lets you configure the wifi settings of the digilent wifi shield from a configuration file on the SD card.</p>
+
+<h2>Why</h2>
+
+<h3>Problem</h3>
+
+<p>In most example sketches that you will find, the wifi settings are always hard-coded in the sketch; this is kind of problematic if every time that you want to connect to a different network you have to change code and rebuild the sketch and reload it on the board. </p>
+
+<h3>Solution</h3>
+
+<p>This library will let you configure the wifi shield with settings read from a configuration file saved on a SD card loaded on the shield. So to change the settings, you just have to change the configuration file on the SD card. This is a lot better especially when your device is deployed in a project.</p>
+
+<h2>Installation</h2>
+
+<p>This is arduino's standard way of installing a custom library:</p>
+
+<ul>
+<li>Copy the folder named "CKEasyWifiConfig" from the repository to the sub-folder 
+<strong>/libraries/</strong> under your sketchbook directory.</li>
+<li>Use the "NetConf.cfg" file from the root of the repository as a template for your configuration file that will go on the SD card.</li>
+</ul><h2>Dependencies</h2>
+
+<p>The library is dependent on four other libraries:</p>
+
+<ul>
+<li>Streaming  <a href="http://arduiniana.org/libraries/streaming/" title="Streaming5">http://arduiniana.org/libraries/streaming/</a>
+</li>
+<li>SD (Already part of mpide)</li>
+<li>DNETcK  <a href="http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,1037&amp;Prod=CHIPKIT-WIFI-SHIELD/" title="DNETcK">http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,1037&amp;Prod=CHIPKIT-WIFI-SHIELD/</a>
+</li>
+<li>DWIFIcK <a href="http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,1037&amp;Prod=CHIPKIT-WIFI-SHIELD/" title="DWIFIcK">http://www.digilentinc.com/Products/Detail.cfm?NavPath=2,892,1037&amp;Prod=CHIPKIT-WIFI-SHIELD/</a>
+</li>
+</ul><p>You need to include these in your main sketch before you include this one.</p>
+
+<p>This library was tested with mpide 0023.</p>
+
+<h2>Configuration File</h2>
+
+<p>The configuration file included in the project is already self-documented.</p>
+
+<p>Any line beginning with the character '#' or '/' will be ignored and considered a comment.</p>
+
+<p>The parameter names in the file are case sensitive, they need to be uppercase. Here are the possible values for each parameters:</p>
+
+<p><strong>SECURITY:</strong></p>
+
+<ul>
+<li>OPEN</li>
+<li>WPA2_WITH_KEY</li>
+<li>WPA2_WITH_PASS_PHRASE</li>
+<li>WPA_WITH_KEY</li>
+<li>WPA_WITH_PASS_PHRASE</li>
+<li>WPA_AUTO_WITH_KEY</li>
+<li>WPA_AUTO_WITH_PASS_PHRASE</li>
+<li>WEP_40</li>
+<li>WEP_104</li>
+</ul><p><strong>IP:</strong></p>
+
+<ul>
+<li>A valid ipv4 address in the form xxx.xxx.xxx.xxx</li>
+<li>DHCP or left blank to use dhcp</li>
+</ul><p><strong>SSID:</strong></p>
+
+<ul>
+<li>The ssid of your network; it is usually case sensitive.</li>
+</ul><p><strong>KEY:</strong></p>
+
+<ul>
+<li>Your key in hexadecimal if you can provide it.</li>
+</ul><p><strong>KEYCHAR:</strong></p>
+
+<ul>
+<li>Your key if you want to provide it in text.</li>
+</ul><p><strong>KEYINDEX:</strong></p>
+
+<ul>
+<li>The index of your key if it is indexed</li>
+</ul><p>Important: the KEY and KEYCHAR parameters are mutually exclusive; if you provide both, the last one read in the file will be the one that is used.</p>
+
+<p>Example of a configuration file to connect with dhcp and an hexadecimal wpa2 key :</p>
+
+<pre><code>SECURITY:WPA_AUTO_WITH_KEY
+SSID:MYNETWORK
+IP:DHCP
+KEY:5312826e170e6d0ef8691670cabc5c9c3072cf8c003e4ee541a499d060746cfa
+</code></pre>
+
+<p>Example of a configuration file to connect with a static address and a wpa2 passphrase key :</p>
+
+<pre><code>SECURITY:WPA_AUTO_WITH_PASS_PHRASE
+SSID:MYNETWORK
+IP:192.168.1.252
+KEYCHAR:hermionegranger
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>There are two example projects provided with the library; one to use a configuration file on the card and one where you can pass the security infos in the code.</p>
+
+<p>To use the library, make sure that you include all the dependency libraries before you include CKEasyWifiConfig.</p>
+
+<p>If you want the library to output some debugging information in the serial port, make sure to define "CKEASYWIFICONFIG_SERIAL_DEBUG" before you include the library. You will also have to make sure that you setup the serial port before you call the "Setup()" method of the library.</p>
+
+<p>It is also very important to initialize the SD card before you call the "Setup()" method of the CKEasyWifiConfig class since it will use it.</p>
+
+<p>Example:</p>
+
+<pre><code>#include &lt;SD.h&gt;
+#include &lt;Streaming.h&gt;
+#include &lt;WiFiShieldOrPmodWiFi.h&gt;  // This is for the MRF24WBxx on a pmodWiFi or WiFiShield
+//#include &lt;WiFiShieldOrPmodWiFi_G.h&gt; // This is for the MRF24WGxx on a pmodWiFi or WiFiShield
+#include &lt;DNETcK.h&gt;
+#include &lt;DWIFIcK.h&gt;
+
+// Remove the next line to stop the serial debugging of the library
+#define CKEASYWIFICONFIG_SERIAL_DEBUG  
+#include &lt;CKEasyWifiConfig.h&gt;
+
+//To enable serial debugging in the main sketch
+#define USE_SERIAL_DEBUG  
+
+// Name of the config file on the SD card
+char networkConfigFile[] = "NetConf.cfg";
+
+CKEasyWifiConfig networkConfig(networkConfigFile);
+
+void setup() {
+  // put your setup code here, to run once:
+
+  #ifdef USE_SERIAL_DEBUG
+    Serial.begin(9600);
+    Serial &lt;&lt; "Initializing SD card..." &lt;&lt; endl;
+  #endif
+
+  // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
+  if (!SD.begin(4)) {
+    #ifdef USE_SERIAL_DEBUG
+      Serial &lt;&lt; "SD Card initialization failed!" &lt;&lt; endl;
+    #endif
+    return;
+  }
+  else
+  {
+    #ifdef USE_SERIAL_DEBUG
+      Serial &lt;&lt; "SD Card initialization success." &lt;&lt; endl;
+      if (SD.exists(networkConfigFile))
+        Serial &lt;&lt; "Network Config File --&gt; " &lt;&lt; networkConfigFile &lt;&lt; " is present on the SD card." &lt;&lt; endl;
+      else
+        Serial &lt;&lt; "Network Config File --&gt; " &lt;&lt; networkConfigFile &lt;&lt; " is NOT present on the SD card." &lt;&lt; endl;
+    #endif // USE_SERIAL_DEBUG
+  }
+
+  // Call the initialization
+  networkConfig.Setup();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly: 
+
+  // every pass through loop(), keep the IP stack alive
+  DNETcK::periodicTasks(); 
+}
+</code></pre>
+
+<h2>Limitations</h2>
+
+<p>The SD card library only supports file names in the 8.3 format. So your configuration file and any sub-folder that you want to put it in, need to have a name in this format.</p>
+
+<p>Due to some architecture differences; this library is not really suitable for the arduino platform. The arduino has a very different memory model especially to store static stuff into the flash memory (PROGMEM). This code was not designed with that in mind and take fully advantage of the fact that the PIC architecture is much easier to code for. Also since there is a lot more space available on the chipKIT platform, more time was spent developing for the usability of the library than on trying to reduce its size. The dependency to the Digilent networking libraries is also a factor to the non-portability of the library.</p>
+
+<h2>Praise</h2>
+
+<p>I know that there was a lot of critics in the forums in regards to the compatibility of the chipKIT environment with the Arduino. But looking at some of the files under the hood of mpide I realized the amount of work necessary to bring this to life. I really think that this is quite an achievement.</p>
+
+<p>The chipKIT platform is amazing; I love the speed, the memory space and the color ;-)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CKEasyWifiConfig maintained by <a href="https://github.com/KurdyMalloy">KurdyMalloy</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
